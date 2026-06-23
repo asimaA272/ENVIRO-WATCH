@@ -4,6 +4,7 @@ import { Activity, Map, Bell, Bot, Satellite, Database, BarChart2, FileText, Set
 const navItems = [
   { icon: Activity, label: 'Overview', badge: 'Live', badgeType: 'live' },
   { icon: Map, label: 'Sensor Map' },
+  { icon: Map, label: 'City Search' },
   { icon: Bell, label: 'Alerts', badge: '3', badgeType: 'danger' },
   { icon: Bot, label: 'Agents', badge: '1', badgeType: 'warn' },
   { icon: Satellite, label: 'NASA Events' },
@@ -51,13 +52,15 @@ export default function Sidebar({ activeTab, onTabChange }) {
           const Icon = item.icon
           const isActive = activeTab === i
           return (
-            <div key={i} onClick={() => onTabChange(i)} style={{
-              display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px',
-              borderRadius: 6, cursor: 'pointer', marginBottom: 2,
-              background: isActive ? 'rgba(59,130,246,0.15)' : 'transparent',
-              color: isActive ? '#60a5fa' : '#64748b',
-              transition: 'all 0.15s',
-            }}>
+            <div key={i}
+              onClick={() => item.label === 'City Search' ? window.location.href = '/city-search' : onTabChange(i)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px',
+                borderRadius: 6, cursor: 'pointer', marginBottom: 2,
+                background: isActive ? 'rgba(59,130,246,0.15)' : 'transparent',
+                color: isActive ? '#60a5fa' : '#64748b',
+                transition: 'all 0.15s',
+              }}>
               <Icon size={16} />
               <span style={{ fontSize: 13, flex: 1 }}>{item.label}</span>
               {item.badge && (
@@ -82,7 +85,7 @@ export default function Sidebar({ activeTab, onTabChange }) {
                 background: dotColor[a.status],
                 boxShadow: `0 0 6px ${dotColor[a.status]}80`,
                 flexShrink: 0,
-              }} className="pulse-dot" />
+              }} />
               <span style={{ fontSize: 12, color: '#94a3b8', flex: 1 }}>{a.name}</span>
               <span style={{ fontSize: 10, color: '#475569' }}>{a.ping}</span>
             </div>
